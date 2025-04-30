@@ -51,34 +51,33 @@
     };
 
     async function confirmPayment() {
-      const bookingDetails = JSON.parse(localStorage.getItem('bookingDetails'));
-      if (!bookingDetails) {
-        alert("No booking found!");
-        return;
-      }
+  const bookingDetails = JSON.parse(localStorage.getItem('bookingDetails'));
 
-      try {
-        const response = await fetch('/update-availability', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ car: bookingDetails.car })
-        });
+  try {
+    const response = await fetch('/update-availability', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        car: bookingDetails.car,           // "Honda Civic"
+        start_date: bookingDetails.startDate  // e.g., "2023-01-02"
+      })
+    });
 
-        const result = await response.json();
-        if (result.success) {
-          alert('Payment Confirmed! Car marked as Unavailable.');
-          localStorage.removeItem('bookingDetails');
-          window.location.href = '/'; // Redirect to homepage after update
-        } else {
-          alert('Error updating availability.');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Server error.');
-      }
+    const result = await response.json();
+    if (result.success) {
+      alert('Payment Confirmed! Car marked as Unavailable.');
+      localStorage.removeItem('bookingDetails');
+      window.location.href = '/';
+    } else {
+      alert('Error updating availability.');
     }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Server error.');
+  }
+}
+
+
   </script>
 
 </body>

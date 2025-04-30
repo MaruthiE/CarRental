@@ -60,25 +60,24 @@
           <td>${car.rental_start_date}</td>
           <td>${car.rental_end_date}</td>
           <td>${car.availability}</td>
-          <td><button onclick="bookCar('${car.car_make} ${car.car_model}', '${car.rental_start_date}', '${car.rental_end_date}', ${car.daily_rate_usd})">Book Now</button></td>
+          <td><button onclick="bookCar(${car.car_id}, '${car.car_make} ${car.car_model}', '${car.rental_start_date}', '${car.rental_end_date}', ${car.daily_rate_usd})">Book Now</button></td>
         `;
         tbody.appendChild(row);
       });
     }
 
-    function bookCar(carMakeModel, rentalStart, rentalEnd, dailyRate) {
-      // Save booking details into local storage
+    function bookCar(carId, carMakeModel, rentalStart, rentalEnd, dailyRate) {
       const bookingDetails = {
+        id: carId,
         car: carMakeModel,
         startDate: rentalStart,
         endDate: rentalEnd,
         totalCost: calculateTotalCost(rentalStart, rentalEnd, dailyRate)
       };
       localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
-
-      // Redirect to checkout page
       window.location.href = '/checkout';
     }
+
 
     function calculateTotalCost(startDate, endDate, dailyRate) {
       const start = new Date(startDate);
