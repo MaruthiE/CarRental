@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <meta charset="UTF-8">
   <title>Car Search & Booking</title>
 </head>
@@ -8,7 +9,7 @@
   <h1>Car Search & Booking</h1>
 
   <form id="searchForm">
-    <label for="searchBar">Car Search (Make or Model):</label><br>
+    <label for="searchBar">Car Search(Make or Model):</label><br>
     <input type="text" id="searchBar" name="searchBar" placeholder="Find a car"><br><br>
 
     <label for="pick-up">Pick-up Date:</label><br>
@@ -37,7 +38,6 @@
       </tr>
     </thead>
     <tbody id="carTableBody">
-      <!-- Car rows will be inserted here dynamically -->
     </tbody>
   </table>
 
@@ -83,8 +83,8 @@
       const start = new Date(startDate);
       const end = new Date(endDate);
       const diffTime = Math.abs(end - start);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // difference in days
-      return (diffDays * dailyRate).toFixed(2); // two decimal points
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return (diffDays * dailyRate).toFixed(2); 
     }
 
     async function loadAndRenderCars() {
@@ -93,7 +93,7 @@
     }
 
     document.getElementById('searchForm').addEventListener('submit', async (e) => {
-      e.preventDefault(); // Prevent form from refreshing the page
+      e.preventDefault(); 
 
       const searchValue = document.getElementById('searchBar').value.toLowerCase();
       const pickupDate = document.getElementById('pick-up').value;

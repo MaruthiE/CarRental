@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
   <meta charset="UTF-8">
   <title>Checkout & Payment</title>
 </head>
 <body>
 
-  <h2>Checkout & Payment</h2>
+  <h2>Checkout & Payment</h2><br>
 
   <h3>Booking Details</h3>
-  <p><b>Car Model:</b> <span id="carModel">Loading...</span></p>
-  <p><b>Rental Period:</b> <span id="rentalPeriod">Loading...</span></p>
-  <p><b>Total Cost:</b> <span id="totalCost">Loading...</span></p>
+  <p><b>Car Model:</b> <span id="carModel">None Selected</span></p>
+  <p><b>Rental Period:</b> <span id="rentalPeriod">None Selected</span></p>
+  <p><b>Total Cost:</b> <span id="totalCost">None Selected</span></p>
 
   <hr><br>
 
@@ -58,14 +60,14 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        car: bookingDetails.car,           // "Honda Civic"
-        start_date: bookingDetails.startDate  // e.g., "2023-01-02"
+        car: bookingDetails.car,           
+        start_date: bookingDetails.startDate  
       })
     });
 
     const result = await response.json();
     if (result.success) {
-      alert('Payment Confirmed! Car marked as Unavailable.');
+      alert('Payment Confirmed.');
       localStorage.removeItem('bookingDetails');
       window.location.href = '/';
     } else {

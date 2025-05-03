@@ -1,6 +1,6 @@
 rental_id,company_id,company_name,branch_location,car_id,car_make,car_model,car_year,rental_start_date,rental_end_date,daily_rate_usd,total_days,total_cost_usd,payment_method,availability
-1,101,Enterprise,New York,5001,Honda,Civic,2020,2025-01-02,2025-01-06,45.0,4,180.0,Credit Card,Available
-2,101,Enterprise,New York,5002,Toyota,Corolla,2019,2025-01-10,2025-01-13,40.0,3,120.0,Debit Card,Available
+1,101,Enterprise,New York,5001,Honda,Civic,2020,2025-01-02,2025-01-06,45.0,4,180.0,Credit Card,Unavailable
+2,101,Enterprise,New York,5002,Toyota,Corolla,2019,2025-01-10,2025-01-13,40.0,3,120.0,Debit Card,Unavailable
 3,202,Hertz,Los Angeles,5010,Hyundai,Sonata,2022,2025-01-15,2025-01-18,50.0,3,150.0,Credit Card,Available
 4,303,Avis,Houston,5015,Ford,Escape,2021,2025-01-20,2025-01-25,52.0,5,260.0,Online Payment,Available
 5,404,Budget,Denver,5020,Chevrolet,Malibu,2018,2025-01-28,2025-01-29,38.0,1,38.0,Cash,Available
@@ -12,16 +12,16 @@ rental_id,company_id,company_name,branch_location,car_id,car_make,car_model,car_
 12,101,Enterprise,New York,5002,Toyota,Corolla,2019,2025-03-06,2025-03-07,40.0,1,40.0,Debit Card,Available
 13,202,Hertz,Los Angeles,5010,Hyundai,Sonata,2022,2025-03-09,2025-03-14,50.0,5,250.0,Cash,Available
 14,303,Avis,Houston,5015,Ford,Escape,2021,2025-03-15,2025-03-16,52.0,1,52.0,Credit Card,Available
-15,404,Budget,Denver,5020,Chevrolet,Malibu,2018,2025-03-18,2025-03-20,38.0,2,76.0,Debit Card,Available
+15,404,Budget,Denver,5020,Chevrolet,Malibu,2018,2025-03-18,2025-03-20,38.0,2,76.0,Debit Card,Unavailable
 16,505,National,Miami,5035,Tesla,Model 3,2021,2025-03-21,2025-03-24,75.0,3,225.0,Credit Card,Available
 17,101,Enterprise,New York,5036,Nissan,Altima,2020,2025-03-25,2025-03-28,45.0,3,135.0,Credit Card,Available
 18,202,Hertz,Los Angeles,5037,BMW,3 Series,2022,2025-03-29,2025-04-02,80.0,4,320.0,Cash,Available
-19,303,Avis,Houston,5038,Mercedes,C-Class,2021,2025-04-05,2025-04-09,85.0,4,340.0,Online Payment,Available
+19,303,Avis,Houston,5038,Mercedes,C-Class,2021,2025-04-05,2025-04-09,85.0,4,340.0,Online Payment,Unavailable
 20,404,Budget,Denver,5040,Kia,Optima,2019,2025-04-10,2025-04-10,40.0,0,0.0,Credit Card,Available
 22,101,Enterprise,New York,5002,Toyota,Corolla,2019,2025-04-17,2025-04-19,40.0,2,80.0,Cash,Available
 23,202,Hertz,Los Angeles,5010,Hyundai,Sonata,2022,2025-04-20,2025-04-23,50.0,3,150.0,Online Payment,Available
 24,303,Avis,Houston,5015,Ford,Escape,2021,2025-04-25,2025-04-29,52.0,4,208.0,Debit Card,Available
-25,404,Budget,Denver,5020,Chevrolet,Malibu,2018,2025-05-01,2025-05-02,38.0,1,38.0,Cash,Unavailable
+25,404,Budget,Denver,5020,Chevrolet,Malibu,2018,2025-05-01,2025-05-02,38.0,1,38.0,Cash,Available
 26,505,National,Miami,5035,Tesla,Model 3,2021,2025-05-03,2025-05-07,75.0,4,300.0,Credit Card,Available
 27,101,Enterprise,New York,5036,Nissan,Altima,2020,2025-05-08,2025-05-13,45.0,5,225.0,Credit Card,Available
 28,202,Hertz,Los Angeles,5037,BMW,3 Series,2022,2025-05-15,2025-05-17,80.0,2,160.0,Online Payment,Available

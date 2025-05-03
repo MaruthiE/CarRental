@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <title>Profile</title>
 </head>
 <body>
 
 <img src="https://media.licdn.com/dms/image/v2/D5603AQGixvJhgy2Lnw/profile-displayphoto-shrink_400_400/B56ZUNoEbLGQAg-/0/1739690363752?e=1750291200&v=beta&t=K-y010_B88ODC6ZcSTp-ehOPsSzvMi9vo8Sog2ZxYoA" alt="Profile Photo" width="200" height="200">
-
+<br><br>
 <h2>Personal Details</h2>
 <form>
     <label for="name">Full Name:</label>
@@ -34,6 +35,8 @@
 
 <h2>Edit Full Name</h2>
 <form method="POST" action="/edit-name">
+  <input type="hidden" name="email" value="{{ user.email }}">
+
   <label for="currentPass">Current Password:</label><br>
   <input type="text" id="currentPass" name="currentPass" required><br><br>
 
@@ -42,6 +45,21 @@
 
   <button type="submit">Update Name</button>
 </form>
+
+<br>
+<br>
+<br> 
+
+<h2>Delete Account</h2>
+<form method="POST" action="/delete-account">
+  <input type="hidden" name="email" value="{{ user.email }}">
+
+  <label for="password">Confirm Password:</label><br>
+  <input type="password" id="password" name="password" required><br><br>
+
+  <input type="submit" value="Delete Account">
+</form>
+
 
 
 </body>
