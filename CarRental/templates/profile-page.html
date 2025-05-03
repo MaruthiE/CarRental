@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Profile</title>
+</head>
+<body>
+
+<img src="https://media.licdn.com/dms/image/v2/D5603AQGixvJhgy2Lnw/profile-displayphoto-shrink_400_400/B56ZUNoEbLGQAg-/0/1739690363752?e=1750291200&v=beta&t=K-y010_B88ODC6ZcSTp-ehOPsSzvMi9vo8Sog2ZxYoA" alt="Profile Photo" width="200" height="200">
+
+<h2>Personal Details</h2>
+<form>
+    <label for="name">Full Name:</label>
+    <span id="name" style="color: grey;">{{ user.full_name }}</span>
+    <br><br>
+
+    <label for="email">Email:</label>
+    <span id="email" style="color: grey;">{{ user.email }}</span>
+    <br><br>
+
+    <label for="phone">Phone Number:</label>
+    <span id="number" style="color: grey;">{{ user.phone }}</span>
+    <br><br>
+
+    <label for="address">Home Address:</label>
+    <span id="address" style="color: grey;">{{ user.address }}</span>
+    <br><br>
+
+    <label for="dob">Date of Birth:</label>
+    <span id="dob" style="color: grey;">{{ user.dob }}</span>
+    <br><br>
+</form>
+
+<hr>
+
+<h2>Edit Full Name</h2>
+<form method="POST" action="/edit-name">
+  <label for="currentPass">Current Password:</label><br>
+  <input type="text" id="currentPass" name="currentPass" required><br><br>
+
+  <label for="newName">New Full Name:</label><br>
+  <input type="text" id="newName" name="newName" required><br><br>
+
+  <button type="submit">Update Name</button>
+</form>
+
+
+</body>
+</html>

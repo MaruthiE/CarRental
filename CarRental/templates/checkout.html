@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout & Payment</title>
+</head>
+<body>
+
+  <h2>Checkout & Payment</h2>
+
+  <h3>Booking Details</h3>
+  <p><b>Car Model:</b> <span id="carModel">Loading...</span></p>
+  <p><b>Rental Period:</b> <span id="rentalPeriod">Loading...</span></p>
+  <p><b>Total Cost:</b> <span id="totalCost">Loading...</span></p>
+
+  <hr><br>
+
+  <label for="payment">Choose Payment Type:</label><br>
+  <select name="types" id="types">
+    <option value=disabled>Select Payment Type</option>
+    <option value="creditCard">Credit Card</option>
+    <option value="paypal">PayPal</option>
+    <option value="applePay">Apple Pay</option>
+    <option value="giftCard">Gift Card</option>
+  </select>
+  <br><br>
+
+  <label for="cardNumber">Card Number:</label><br>
+  <input type="text" id="cardNumber" name="cardNumber"><br><br>
+
+  <label for="cardName">Name on Card:</label><br>
+  <input type="text" id="cardName" name="cardName"><br><br>
+
+  <label for="exp">Expiration Date:</label><br>
+  <input type="text" id="exp" name="exp" placeholder="MM/YY"><br><br>
+
+  <label for="cvv">CVV:</label><br>
+  <input type="text" id="cvv" name="cvv"><br><br>
+
+  <button type="button" onclick="confirmPayment()">Confirm Payment</button>
+
+  <script>
+    window.onload = function() {
+      const bookingDetails = JSON.parse(localStorage.getItem('bookingDetails'));
+
+      if (bookingDetails) {
+        document.getElementById('carModel').textContent = bookingDetails.car;
+        document.getElementById('rentalPeriod').textContent = `${bookingDetails.startDate} - ${bookingDetails.endDate}`;
+        document.getElementById('totalCost').textContent = `$${bookingDetails.totalCost}`;
+      }
+    };
+
+    async function confirmPayment() {
+  const bookingDetails = JSON.parse(localStorage.getItem('bookingDetails'));
+
+  try {
+    const response = await fetch('/update-availability', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        car: bookingDetails.car,           // "Honda Civic"
+        start_date: bookingDetails.startDate  // e.g., "2023-01-02"
+      })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      alert('Payment Confirmed! Car marked as Unavailable.');
+      localStorage.removeItem('bookingDetails');
+      window.location.href = '/';
+    } else {
+      alert('Error updating availability.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Server error.');
+  }
+}
+
+
+  </script>
+
+</body>
+</html>

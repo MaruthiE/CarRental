@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Search & Booking</title>
+</head>
+<body>
+  <h1>Car Search & Booking</h1>
+
+  <form id="searchForm">
+    <label for="searchBar">Car Search (Make or Model):</label><br>
+    <input type="text" id="searchBar" name="searchBar" placeholder="Find a car"><br><br>
+
+    <label for="pick-up">Pick-up Date:</label><br>
+    <input type="date" id="pick-up" name="pick-up"><br><br>
+
+    <label for="drop-off">Drop-off Date:</label><br>
+    <input type="date" id="drop-off" name="drop-off"><br><br>
+
+    <label for="priceRange">Max Price:</label><br>
+    <input type="number" id="priceRange" name="priceRange" min="0"><br><br>
+
+    <input type="submit" id="searchButton" value="Search">
+  </form>
+
+  <br><br>
+
+  <table border="2">
+    <thead>
+      <tr>
+        <th>Car</th>
+        <th>Price/Day</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Availability</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="carTableBody">
+      <!-- Car rows will be inserted here dynamically -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchCars() {
+      const response = await fetch('/api/cars');
+      const cars = await response.json();
+      return cars;
+    }
+
+    function renderCars(cars) {
+      const tbody = document.getElementById('carTableBody');
+      tbody.innerHTML = '';
+
+      cars.forEach(car => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${car.car_make} ${car.car_model}</td>
+          <td>$${car.daily_rate_usd}</td>
+          <td>${car.rental_start_date}</td>
+          <td>${car.rental_end_date}</td>
+          <td>${car.availability}</td>
+          <td><button onclick="bookCar(${car.car_id}, '${car.car_make} ${car.car_model}', '${car.rental_start_date}', '${car.rental_end_date}', ${car.daily_rate_usd})">Book Now</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function bookCar(carId, carMakeModel, rentalStart, rentalEnd, dailyRate) {
+      const bookingDetails = {
+        id: carId,
+        car: carMakeModel,
+        startDate: rentalStart,
+        endDate: rentalEnd,
+        totalCost: calculateTotalCost(rentalStart, rentalEnd, dailyRate)
+      };
+      localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
+      window.location.href = '/checkout';
+    }
+
+
+    function calculateTotalCost(startDate, endDate, dailyRate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      const diffTime = Math.abs(end - start);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // difference in days
+      return (diffDays * dailyRate).toFixed(2); // two decimal points
+    }
+
+    async function loadAndRenderCars() {
+      const cars = await fetchCars();
+      renderCars(cars);
+    }
+
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+      e.preventDefault(); // Prevent form from refreshing the page
+
+      const searchValue = document.getElementById('searchBar').value.toLowerCase();
+      const pickupDate = document.getElementById('pick-up').value;
+      const dropoffDate = document.getElementById('drop-off').value;
+      const priceLimit = document.getElementById('priceRange').value;
+
+      let cars = await fetchCars();
+
+      if (searchValue) {
+        cars = cars.filter(car =>
+          (car.car_make + ' ' + car.car_model).toLowerCase().includes(searchValue)
+        );
+      }
+
+      if (pickupDate) {
+        cars = cars.filter(car => car.rental_start_date >= pickupDate);
+      }
+      if (dropoffDate) {
+        cars = cars.filter(car => car.rental_end_date <= dropoffDate);
+      }
+
+      if (priceLimit) {
+        cars = cars.filter(car => parseFloat(car.daily_rate_usd) <= parseFloat(priceLimit));
+      }
+
+      renderCars(cars);
+    });
+
+    window.onload = loadAndRenderCars;
+  </script>
+
+</body>
+</html>
